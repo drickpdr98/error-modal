@@ -6,12 +6,14 @@ import UserList from "./UserList";
 function App() {
   const [uInput, setUInput] = useState([]);
 
-  const userInput = function (input) {};
+  const userInput = function (input) {
+    setUInput((prev) => [...prev, input]);
+  };
 
   return (
     <div className="App">
       <AddUser onGetUser={userInput} />
-      <UserList inputs={uInput} />
+      {uInput && <UserList inputs={uInput} />}
     </div>
   );
 }

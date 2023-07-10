@@ -3,8 +3,9 @@ import styles from "./AddUser.module.css";
 import Button from "./Button";
 
 const intialData = {
-  username: "Dravin",
-  age: "23",
+  username: "",
+  age: "",
+  id: "",
 };
 
 export default function AddUser({ onGetUser }) {
@@ -14,13 +15,17 @@ export default function AddUser({ onGetUser }) {
     event.preventDefault();
     console.log(userData);
 
-    // onGetUser();
+    onGetUser(userData);
     setUserData(intialData);
   };
 
   const inputChangeHandler = function (inputValue, value) {
     setUserData((prev) => {
-      return { ...prev, inputValue: value };
+      return {
+        ...prev,
+        [inputValue]: value,
+        id: Math.round(Math.random() * 100),
+      };
     });
   };
 
@@ -35,7 +40,7 @@ export default function AddUser({ onGetUser }) {
           onChange={(event) =>
             inputChangeHandler("username", event.target.value)
           }
-          // value={userData.username}
+          value={userData.username}
         />
       </div>
       <div>
@@ -45,7 +50,7 @@ export default function AddUser({ onGetUser }) {
           className={styles.input}
           type="number"
           onChange={(event) => inputChangeHandler("age", event.target.value)}
-          // value={userData.age}
+          value={userData.age}
         />
       </div>
       <Button type="submit">Add User</Button>
