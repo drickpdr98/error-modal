@@ -1,15 +1,21 @@
 import styles from "./ErrorModal.module.css";
 
+import Card from "./Card";
+import Button from "./Button";
+
 export default function ErrorModal() {
   return (
     <>
       <div className={styles.backdrop}></div>
-      <div className={styles.modal}>
-        <div className={styles.header}>
-          <h2>Username cannot be empty</h2>
-          <p className={styles.contents}>Please enter a valid username</p>
+      <Card className={styles.modal}>
+        <header className={styles.header}></header>
+        <div className={styles.content}>
+          <p>Please enter a valid username</p>
         </div>
-      </div>
+        <footer className={styles.actions}>
+          <Button>Okay</Button>
+        </footer>
+      </Card>
     </>
   );
 }
