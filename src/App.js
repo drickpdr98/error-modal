@@ -13,6 +13,7 @@ function App() {
   return (
     <div className="App">
       <AddUser onGetUser={userInput} />
+
       {uInput && <UserList inputs={uInput} />}
     </div>
   );

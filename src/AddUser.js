@@ -2,6 +2,8 @@ import { useState } from "react";
 import styles from "./AddUser.module.css";
 
 import Button from "./Button";
+import ErrorModal from "./ErrorModal";
+import Card from "./Card";
 
 const intialData = {
   username: "",
@@ -14,9 +16,7 @@ export default function AddUser({ onGetUser }) {
 
   const submitChangeHandler = function (event) {
     event.preventDefault();
-    console.log(userData);
 
-    onGetUser(userData);
     setUserData(intialData);
   };
 
@@ -30,10 +30,15 @@ export default function AddUser({ onGetUser }) {
     });
   };
 
+  // if (userData.username.trim().length <= 0 || userData.age.trim().length <= 0)
+  //   return <ErrorModal />;
+
   return (
-    <form onSubmit={submitChangeHandler}>
-      <div>
-        <label className={styles.label}>Username</label>
+    <Card className={styles.input}>
+      <form onSubmit={submitChangeHandler}>
+        <label htmlFor="username" className={styles.label}>
+          Username
+        </label>
         <input
           id="username"
           className={styles.input}
@@ -43,9 +48,9 @@ export default function AddUser({ onGetUser }) {
           }
           value={userData.username}
         />
-      </div>
-      <div>
-        <label className={styles.label}>Age</label>
+        <label htmlFor="age" className={styles.label}>
+          Age
+        </label>
         <input
           id="age"
           className={styles.input}
@@ -53,8 +58,8 @@ export default function AddUser({ onGetUser }) {
           onChange={(event) => inputChangeHandler("age", event.target.value)}
           value={userData.age}
         />
-      </div>
-      <Button type="submit">Add User</Button>
-    </form>
+        <Button type="submit">Add User</Button>
+      </form>
+    </Card>
   );
 }
