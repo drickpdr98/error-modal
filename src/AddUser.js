@@ -14,13 +14,29 @@ const intialData = {
 export default function AddUser({ onGetUser }) {
   const [userData, setUserData] = useState(intialData);
 
+  const [error, setError] = useState();
+
   const submitChangeHandler = function (event) {
     event.preventDefault();
 
-    if (userData.username.trim().length <= 0 || userData.age.trim().length <= 0)
+    if (
+      userData.username.trim().length <= 0 ||
+      userData.age.trim().length <= 0
+    ) {
+      setError({
+        title: "Invalid",
+        message: "Please enter a valid username and age",
+      });
       return;
+    }
 
-    if (Number(userData.age) < 1) return;
+    if (Number(userData.age) < 1) {
+      setError({
+        title: "Invalid",
+        message: "Please enter a valid  age",
+      });
+      return;
+    }
 
     onGetUser(userData);
 
@@ -37,9 +53,19 @@ export default function AddUser({ onGetUser }) {
     });
   };
 
+  const errorHandler = function () {
+    setError(null);
+  };
+
   return (
     <div>
-      <ErrorModal />
+      {error && (
+        <ErrorModal
+          title={error.title}
+          message={error.message}
+          onConfirm={errorHandler}
+        />
+      )}
       <Card className={styles.input}>
         <form onSubmit={submitChangeHandler}>
           <label htmlFor="username" className={styles.label}>
