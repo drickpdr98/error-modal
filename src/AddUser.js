@@ -17,6 +17,13 @@ export default function AddUser({ onGetUser }) {
   const submitChangeHandler = function (event) {
     event.preventDefault();
 
+    if (userData.username.trim().length <= 0 || userData.age.trim().length <= 0)
+      return;
+
+    if (Number(userData.age) < 1) return;
+
+    onGetUser(userData);
+
     setUserData(intialData);
   };
 
@@ -29,9 +36,6 @@ export default function AddUser({ onGetUser }) {
       };
     });
   };
-
-  // if (userData.username.trim().length <= 0 || userData.age.trim().length <= 0)
-  //   return <ErrorModal />;
 
   return (
     <Card className={styles.input}>
